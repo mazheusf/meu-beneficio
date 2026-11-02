@@ -2,6 +2,8 @@ const KEY='meu-beneficio-v2';
 const MONTHLY={VR:1227.16,VA:967.00};
 const initial={vr:1223.50,va:1223.50,transactions:[],lastMonthlyCredit:''};
 let state=load();let modalMode='expense';
+// Reconcilia saldos com o histórico já salvo, uma única vez, para corrigir despesas antigas não descontadas.
+if(!state.balanceReconciled){for(const type of ['VR','VA']){const key=type.toLowerCase();let balance=initial[key];for(const t of state.transactions){if(t.type===type){balance+=(t.kind==='credit'?1:-1)*Number(t.amount||0)}}state[key]=Math.round(balance*100)/100;}state.balanceReconciled=true;localStorage.setItem(KEY,JSON.stringify(state));}
 const $=id=>document.getElementById(id);
 const money=n=>Number(n).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
 function load(){try{return {...initial,...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch{return {...initial}}}
