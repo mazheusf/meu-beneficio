@@ -58,6 +58,13 @@
     <form method="dialog" id="settingsForm">
       <div class="modal-head"><div><p class="eyebrow">PERSONALIZAR</p><h2>Créditos mensais</h2></div><button class="close-button" value="cancel" aria-label="Fechar">×</button></div>
       <p class="helper">Valores fixos cadastrados para seu benefício.</p>
+      <div class="credit-schedule">
+        <b>Ajustar saldos atuais</b>
+        <small>Informe o saldo que aparece hoje nos aplicativos VR e VA. O histórico será preservado.</small>
+        <label>Saldo atual do VR<input id="adjustVR" inputmode="decimal" placeholder="0,00"></label>
+        <label>Saldo atual do VA<input id="adjustVA" inputmode="decimal" placeholder="0,00"></label>
+        <button class="secondary-button" id="saveBalancesBtn" type="button">Salvar saldos atuais</button>
+      </div>
       <div class="credit-schedule"><div><span>VR mensal</span><b>R$ 1.227,16</b></div><div><span>VA mensal</span><b>R$ 967,00</b></div><div><span>Total mensal</span><b>R$ 2.194,16</b></div><small>Previsão: todo dia 30. Se cair em dia não útil, considerar o dia útil anterior. O crédito só entra no saldo quando você confirmar.</small></div>
       <button class="primary-button" id="monthlyCreditBtn" type="button">Registrar crédito mensal</button>
       <button class="secondary-button" id="backupBtn" type="button">Exportar backup</button>
@@ -69,6 +76,6 @@
     <div class="modal-head"><div><p class="eyebrow">EXTRATO</p><h2>Movimentações</h2></div><button class="close-button" id="closeHistory">×</button></div>
     <div id="fullHistoryList" class="history-list"></div>
   </dialog>
-  <script src="app.js?v=4"></script>
+  <script src="app.js?v=5"></script>
 </body>
 </html>
