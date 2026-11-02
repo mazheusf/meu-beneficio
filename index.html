@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f6f7f8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Meu Benefício">
+  <title>Meu Benefício — VR + VA</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div><p class="eyebrow">CONTROLE PESSOAL</p><h1>Meu benefício</h1></div>
+      <button class="icon-button" id="settingsBtn" aria-label="Configurações" title="Configurações">⚙</button>
+    </header>
+    <section class="balance-card" aria-label="Saldo total">
+      <div class="balance-heading"><span>Saldo disponível</span><span class="live-dot"></span></div>
+      <div class="total" id="totalBalance">R$ 2.447,00</div>
+      <div class="split-bar" aria-hidden="true"><span id="vrBar"></span><span id="vaBar"></span></div>
+      <div class="split-legend"><span><i class="dot vr-dot"></i>VR <b id="vrPercent">50%</b></span><span><i class="dot va-dot"></i>VA <b id="vaPercent">50%</b></span></div>
+    </section>
+    <section class="wallet-grid">
+      <article class="wallet wallet-vr"><div class="wallet-top"><span class="wallet-icon">↗</span><span class="wallet-label">Refeição · VR</span></div><strong id="vrBalance">R$ 1.223,50</strong><small>Saldo disponível</small></article>
+      <article class="wallet wallet-va"><div class="wallet-top"><span class="wallet-icon">⌂</span><span class="wallet-label">Alimentação · VA</span></div><strong id="vaBalance">R$ 1.223,50</strong><small>Saldo disponível</small></article>
+    </section>
+    <section class="section quick-section">
+      <div class="section-heading"><h2>Movimentar saldo</h2><span>Registre créditos e gastos</span></div>
+      <div class="action-grid">
+        <button class="action-card" id="expenseBtn"><span class="action-symbol expense-symbol">−</span><span><b>Adicionar gasto</b><small>Registrar uma compra</small></span></button>
+        <button class="action-card" id="creditBtn"><span class="action-symbol credit-symbol">＋</span><span><b>Adicionar crédito</b><small>Novo benefício recebido</small></span></button>
+      </div>
+    </section>
+    <section class="section history-section">
+      <div class="section-heading"><h2>Últimas movimentações</h2><button class="text-button" id="allHistoryBtn">Ver tudo</button></div>
+      <div id="historyList" class="history-list"><div class="empty-state">Suas movimentações aparecerão aqui.</div></div>
+    </section>
+    <footer>Seus dados ficam salvos neste dispositivo. Faça backups periódicos.</footer>
+  </main>
+  <nav class="bottom-nav"><span class="nav-item active"><b>◫</b>Resumo</span><button class="nav-item" id="historyNav"><b>↻</b>Histórico</button><button class="nav-item" id="settingsNav"><b>⚙</b>Ajustes</button></nav>
+  <dialog id="transactionDialog">
+    <form method="dialog" id="transactionForm">
+      <div class="modal-head"><div><p class="eyebrow" id="modalEyebrow">NOVA MOVIMENTAÇÃO</p><h2 id="modalTitle">Adicionar gasto</h2></div><button class="close-button" value="cancel" aria-label="Fechar">×</button></div>
+      <label>Tipo de benefício<select id="benefitType"><option value="VR">VR · Refeição</option><option value="VA">VA · Alimentação</option></select></label>
+      <label>Valor<input id="amount" inputmode="decimal" placeholder="0,00" required></label>
+      <label>Descrição<input id="description" maxlength="60" placeholder="Ex.: almoço, mercado..."></label>
+      <label>Data<input id="transactionDate" type="date" required></label>
+      <p class="form-error" id="formError"></p>
+      <button class="primary-button" id="saveTransaction" value="default">Salvar movimentação</button>
+    </form>
+  </dialog>
+  <dialog id="settingsDialog">
+    <form method="dialog" id="settingsForm">
+      <div class="modal-head"><div><p class="eyebrow">PERSONALIZAR</p><h2>Créditos mensais</h2></div><button class="close-button" value="cancel" aria-label="Fechar">×</button></div>
+      <p class="helper">Valores fixos cadastrados para seu benefício.</p>
+      <div class="credit-schedule"><div><span>VR mensal</span><b>R$ 1.227,16</b></div><div><span>VA mensal</span><b>R$ 967,00</b></div><div><span>Total mensal</span><b>R$ 2.194,16</b></div><small>Previsão: todo dia 30. Se cair em dia não útil, considerar o dia útil anterior. O crédito só entra no saldo quando você confirmar.</small></div>
+      <button class="primary-button" id="monthlyCreditBtn" type="button">Registrar crédito mensal</button>
+      <button class="secondary-button" id="backupBtn" type="button">Exportar backup</button>
+      <label class="import-label">Restaurar backup<input id="importFile" type="file" accept="application/json,.json"></label>
+      <button class="danger-button" id="resetBtn" type="button">Zerar saldos e histórico</button>
+    </form>
+  </dialog>
+  <dialog id="historyDialog">
+    <div class="modal-head"><div><p class="eyebrow">EXTRATO</p><h2>Movimentações</h2></div><button class="close-button" id="closeHistory">×</button></div>
+    <div id="fullHistoryList" class="history-list"></div>
+  </dialog>
+  <script src="app.js"></script>
+</body>
+</html>
